@@ -9,9 +9,9 @@ const ytbModule = require('../node-youtube/trial');
 //Connect to MySQL
 var mysql = require('mysql')
 var connection = mysql.createConnection({
-    host     : 'dbcluster.cluster-cmscsvr5od93.us-east-1.rds.amazonaws.com',
+    host     : '**********',
     user     : 'group11',
-    password : 'funkymonkey123*',
+    password : '*****',
     database : 'RecipeData'
 });
 connection.connect();
@@ -24,7 +24,7 @@ router.get('/rts', function(req, res){
 
 //Connect to MongoDB
 var mongoose = require('mongoose');
-mongoose.connect('group11:group11@ec2-54-152-154-124.compute-1.amazonaws.com:27017/IngredientData');
+mongoose.connect('**********');
 var Schema = mongoose.Schema;
 var ObjectId = mongoose.Schema.Types.ObjectId;
 
