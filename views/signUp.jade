@@ -1,0 +1,70 @@
+doctype html
+html(ng-app='angularApp')
+    head
+        base(href='/')
+        title Recipe Finder - Sign Up
+        script(src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js')
+        script(src='javascripts/app.js', type='text/javascript')
+        link(rel='stylesheet', href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+        link(rel='stylesheet', href="stylesheets/custom.css")
+        link(rel='stylesheet', href="stylesheets/colorbox.css")
+        link(href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'  type='text/css')
+        style.
+            body {
+                background-image: url("images/signInUp.jpg");
+                color: white;
+                font-family: 'Lobster';
+            }
+
+            a {
+                font-family: 'Lobster';
+            }
+
+            .button {
+                background-color: white;
+                color: black;
+                border: 2px solid #e7e7e7;
+                font-size: 15px;
+                width: 70%;
+                height: 45px;
+            }
+
+            .button:hover {
+                background-color: #e7e7e7;
+            }
+
+            label{
+                font-size: 20px;
+
+                    }
+    body
+         //Navigation Bar
+        nav.navbar.navbar-custom.navbar-fixed-top
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(onclick="location.href='/'") Recipe Finder
+            // /.nav-collapse
+
+            br
+            br
+            br
+        div(class="col-xs-3 col-lg-4 col-lg-offset-4 ")
+            center
+                br
+                br
+                p(style='font-size: 35px') Sign Up
+                br
+                div(ng-controller='signUpController')
+                    label Name
+                    input(class="form-control" type='text', name="username" ng-model='username', value='NAME')
+                    label Login Name
+                    input(class="form-control" type='text', value='LOGIN', ng-model='login')
+                    label Password
+                    input(class="form-control" type='text', name="pass", ng-model='password', value = 'PASSWORD')
+                    label Email
+                    input(class="form-control" type='text', value='email', ng-model='email', name="email")
+                    br
+                    input(class="button" type='button' value='Sign Up' ng-click='AddUser()')

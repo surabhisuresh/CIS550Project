@@ -1,0 +1,66 @@
+doctype html
+html(ng-app='angularApp')
+    head
+        base(href='/')
+
+        title Integrating AngularJS with NodeJS
+
+        script(src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js')
+
+        script(src='javascripts/app.js', type='text/javascript')
+        link(rel='stylesheet', href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+        link(rel='stylesheet', href="stylesheets/custom.css")
+        link(rel='stylesheet', href="stylesheets/colorbox.css")
+        link(href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'  type='text/css')
+        style.
+            body {
+                background-image: url("images/signInUp.jpg");
+                color: white;
+                font-family: 'Lobster';
+            }
+
+            a {
+                font-family: 'Lobster';
+            }
+
+            .button {
+                background-color: white;
+                color: black;
+                border: 2px solid #e7e7e7;
+                font-size: 15px;
+                width: 70%;
+                height: 45px;
+            }
+
+            .button:hover {
+                background-color: #e7e7e7;
+            }
+
+
+    body
+        // Navigation Bar
+        nav.navbar.navbar-custom.navbar-fixed-top
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(onclick="location.href='/'") Recipe Finder
+            // /.nav-collapse
+        br
+        div(class="col-xs-3 col-lg-4 col-lg-offset-4 ")
+            center
+                p(style='font-size: 40px') Sign In
+                br
+                div(ng-controller='signInController')
+                    label(style='font-size:30px') Username
+                    input(class="form-control" type='text', name="user" ng-model='user', value='USERNAME')
+                    br
+                    label(style='font-size:30px') Password
+                    input(class="form-control"  type='password', name="pass", ng-model='password', value = 'PASSWORD')
+                    br
+                    input(class="button"  type='submit', value='SignIn', ng-click='Authenticate()')
+
+                p Don't have an account yet? Sign up below!
+                    br
+                    input(class="button" type="button", onclick="location.href='/signUp'", value="Sign Up")

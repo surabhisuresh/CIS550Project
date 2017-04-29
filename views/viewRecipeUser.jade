@@ -1,0 +1,112 @@
+doctype html
+html
+    head
+        base(href='/')
+        title Recipe Finder
+        link(href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', rel='stylesheet')
+        link(href='stylesheets/custom.css', rel='stylesheet')
+        link(rel='stylesheet', href="stylesheets/colorbox.css")
+        link(href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css')
+        link(href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'  type='text/css')
+        style.
+            body {
+                background-image: url("images/recipes.jpg");
+                font-family: 'Cabin';
+                font-weight: bold;
+                color: white;
+            }
+
+            a {
+                color: gold;
+                font-size: 30px;
+                font-family: 'Lobster';
+            }
+
+            .button {
+                background-color: white;
+                color: black;
+                border: 2px solid #e7e7e7;
+                border-radius: 10px;
+                font-size: 15px;
+                width: 15%;
+                height: 35px;
+                position: relative;
+                left: 125px;
+            }
+
+            .button:hover {
+                background-color: #e7e7e7;
+            }
+
+    body
+        nav.navbar.navbar-custom.navbar-fixed-top
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(onclick="location.href='/user/#{login}'") Recipe Finder
+            .collapse.navbar-collapse.navbar-right
+                ul.nav.navbar-nav
+                    li.active
+                        a(onclick="location.href='/myAccount/#{login}'") MY ACCOUNT
+                    li
+                        a(onclick="location.href='/'") Logout
+        br
+        div(class="contentframe" style="width:65%")
+            p(style="font-weight:bold; font-size:50px; color:white") #{results[0].Title} | #{results[0].Category}
+            p(style="font-weight:bold; font-size:25px") AVERAGE RATING: #{results[0].Rate}/5
+            p(style="font-weight:bold; font-size:25px") INGREDIENTS
+                -for (var inx = 0; inx < results.length; inx++)
+                        p(style="font-weight:bold; font-size:18px") #{results[inx].Qty} #{results[inx].Unit} of #{results[inx].Ingredient}
+            p(style="font-weight:bold; font-size:25px") PROCEDURE
+            p #{results[0].Procedures}
+            p(style="font-weight:bold; font-size:25px") SUBSTITUTIONS
+            - if (subst.every(function(x){return x == null;}))
+                p(style="font-weight:bold; font-size:18px") Sorry! No substitutions.
+            - else
+                - for (var inx = 0; inx < subst.length; inx++)
+                    - if (subst[inx] != null)
+                        p(style="font-weight:bold; font-size:18px") #{subst[inx].amount} #{results[inx].Ingredient} = #{subst[inx].substitution}
+            iframe(width='800', height='250', scrolling='no', frameborder='no', src= "/showNutrition/#{results[0].ID}")
+            br
+            div(class="contentframe2" style="position:relative; bottom:630px; left:650px")
+                img(src="#{imgname}" , onerror="this.style.display='none'")
+            br
+            - if (fav.length == 0)
+                input(type="button" , class="button", onclick="location.href='/addFav/#{results[0].ID}&#{login}'", value="Favorite?")
+            - if (fav.length != 0)
+                input(type="button" , class="button", onclick="location.href='/delFav/#{results[0].ID}&#{login}'", value="Un-Favorite?")
+            br
+            br
+            - if (rate.length==0)
+               form(action='/addRate/#{results[0].ID}&#{login}', method='post')
+                input(type="radio", name="rating", value="1")
+                | 1
+                input(type="radio", name="rating", value="2")
+                | 2
+                input(type="radio", name="rating", value="3")
+                | 3
+                input(type="radio", name="rating", value="4")
+                | 4
+                input(type="radio", name="rating", value="5")
+                | 5
+                button(type='submit',class="button",) Submit Rating
+            - else
+                form(action='/updateRate/#{results[0].ID}&#{login}', method='post')
+                    input(type="radio", name="rating", value="1")
+                    | 1
+                    input(type="radio", name="rating", value="2")
+                    | 2
+                    input(type="radio", name="rating", value="3")
+                    | 3
+                    input(type="radio", name="rating", value="4")
+                    | 4
+                    input(type="radio", name="rating", value="5")
+                    | 5
+                    button(type='submit', class="button",) Change Rating from #{rate[0].Rate}
+            div(class="contentframe2" style="position:relative; bottom:900px; left:860px")
+                iframe(width='400', height='500', scrolling='no', allowtransparency="true", frameborder='no', src= "/get_google1/#{results[0].Title}")
+            div(class="contentframe3" style="position:relative; bottom:900px; left:860px")
+                iframe(frameborder='0',width='420', height='345', src='/get_youtube1/#{results[0].Title}')
+

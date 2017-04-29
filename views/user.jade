@@ -1,0 +1,112 @@
+doctype html
+html(ng-app='angularApp')
+    base(href='/')
+    head
+        title Recipe Finder
+        script(src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js')
+        script(src='javascripts/app.js', type='text/javascript')
+        link(href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', rel='stylesheet')
+        link(href='stylesheets/custom.css', rel='stylesheet')
+        link(href='stylesheets/colorbox.css', rel='stylesheet')
+        link(href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'  type='text/css')
+        style.
+            body {
+                background-image: url("images/search.jpg");
+            }
+
+            a {
+                color: gold;
+                font-size: 30px;
+                font-family: 'Lobster';
+            }
+
+            .button {
+                background-color: white;
+                color: black;
+                border: 2px solid #e7e7e7;
+                border-radius: 10px;
+                font-size: 15px;
+                width: 25%;
+                height: 35px;
+                position: relative;
+                left: 125px;
+            }
+
+            .button:hover {
+                background-color: #e7e7e7;
+            }
+
+    body
+        nav.navbar.navbar-custom.navbar-fixed-top
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(onclick="location.href='/user/#{login}'") Recipe Finder
+            .collapse.navbar-collapse.navbar-right
+                ul.nav.navbar-nav
+                    li
+                        a(onclick="location.href='/myAccount/#{login}'") MY ACCOUNT
+                    li
+                        a(onclick="location.href='/'") Logout
+        br
+        .col-xs-3.col-lg-4
+            div(ng-controller='searchController')
+
+                p(style="font-size:20px; color:white") Search for a recipe
+                select(class="form-control", ng-model='searchMode', ng-options='x for x in modes')
+                br
+                br
+                div(ng-if="searchMode=='Keyword'", ng-controller='searchController')
+                    input(class="form-control", type='text', name='key', ng-model='key')
+                    br
+                    br
+                    button(type='button', class="button", ng-click='updateResKey()') Submit
+                    p(style='font-size: 15px; color: white') {{emptymsg}}
+                    select(class="form-control", name='ordering', ng-model='ordering')
+                        option(value='') ---Sort By---
+                        option(value='arate') Highest Avg Rating
+                        option(value='numrate') Most Rated
+                        option(value='numfav') Most Favorited
+                    ul
+                        li(ng-repeat='item in kdata | orderBy:ordering:true')
+                            a(ng-href='/viewRecipeUser/{{item.ID}}&#{login}') {{item.Title}}
+                            p(style='font-size: 15px; color: white')  Rating:{{item.arate}}/5
+                div(ng-if="searchMode=='Ingredient'", ng-controller='searchController')
+                    input.form-control(type='text', name='ingr1', ng-model='ingr1')
+                    input.form-control(type='text', name='ingr2', ng-model='ingr2')
+                    input.form-control(type='text', name='ingr3', ng-model='ingr3')
+                    br
+                    br
+                    button(type='button', class="button" ng-click='updateResIngr()') Submit
+                    p(style='font-size: 15px; color: white') {{emptymsg}}
+                    select(class="form-control", name='ordering', ng-model='ordering')
+                        option(value='') ---Sort By---
+                        option(value='arate') Highest Avg Rating
+                        option(value='numrate') Most Rated
+                        option(value='numfav') Most Favorited
+                    ul
+                        li(ng-repeat='item in idata | orderBy:ordering:true')
+                            a(ng-href='/viewRecipeUser/{{item.ID}}&#{login}') {{item.Title}}
+                            p(style='font-size: 15px; color: white')  Rating:{{item.arate}}/5
+                div(ng-if="searchMode=='Category'")
+                    select(class="form-control", name='catMode', ng-model='catMode', ng-init='getCat()', ng-options='item.Category for item in categories')
+                    br
+                    br
+                    div(ng-controller='searchController')
+                        button(type='button', class="button" ng-click='updateResCat()') Submit
+                        select(class="form-control", name='ordering', ng-model='ordering')
+                            option(value='') ---Sort By---
+                            option(value='arate') Highest Avg Rating
+                            option(value='numrate') Most Rated
+                            option(value='numfav') Most Favorited
+                        ul
+                            li(ng-repeat='item in cdata | orderBy:ordering:true')
+                                a(ng-href='/viewRecipeUser/{{item.ID}}&#{login}') {{item.Title}}
+                                p(style='font-size: 15px; color: white')  Rating:{{item.arate}}/5
+            p(style='font-size: 15px; color: white') Trending Recipes
+                div(ng-controller='TrendingRecipeController')
+                    ul
+                        li(ng-repeat='item in favdata')
+                            a(ng-href='/viewRecipeUser/{{item.ID}}&#{login}') {{item.Title}}

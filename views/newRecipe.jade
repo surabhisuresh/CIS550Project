@@ -1,0 +1,63 @@
+doctype html
+html(ng-app='angularApp')
+    base(href='/')
+    head
+        title Recipe Finder
+        script(src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js')
+        script(src='javascripts/app.js', type='text/javascript')
+        link(href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', rel='stylesheet')
+        link(href='stylesheets/custom.css', rel='stylesheet')
+        link(href='stylesheets/colorbox.css', rel='stylesheet')
+        link(href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'  type='text/css')
+        style.
+            body {
+                background-image: url("images/addEdit.png");
+                color: black;
+                font-family: 'Lobster';
+                font-size: 25px;
+            }
+
+            a {
+                font-family: 'Lobster';
+            }
+
+    body
+        nav.navbar.navbar-custom.navbar-fixed-top
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(onclick="location.href='/user/#{login}'") Recipe Finder
+            .collapse.navbar-collapse.navbar-right
+                ul.nav.navbar-nav
+                    li.active
+                        a(onclick="location.href='/myAccount/#{login}'") MY ACCOUNT
+                    li
+                        a(onclick="location.href='/'") Logout
+        br
+        p(style="font-size:40px") New Recipe
+        form(class="form-group",action='/addRecipe/#{login}',enctype='multipart/form-data', method='post', ng-controller='addController')
+            .col-xs-7
+                .input
+                    label Title
+                    input(class="form-control", name='title', ng-model='title', type='text')
+                .input
+                    label Category
+                    input(class="form-control",name='cat', ng-model='cat', type='text')
+                .input
+                    label Ingredients
+                    p(data-ng-repeat='i in ingredients')
+                        input(class="form-control",type='text', name='Qty', placeholder='Quanitity')
+                        input(class="form-control",type='text', name='Unit', placeholder='Unit')
+                        input(class="form-control",type='text', name='Ingr', placeholder='Ingredient')
+                        input(class="form-control",type='text', name='Note', placeholder='Notes')
+                        button.remove(class="btn btn-default",ng-show='$last', ng-click='removeIngr()') Remove
+                    input(class="btn btn-default",type='button', ng-click='addNewIngr()', value='Add Ingredient')
+                .input
+                    label Procedure
+                    textarea(class="form-control",name='procedure',rows="6", cols="66" , ng-model='procedure', type='text')
+                .input
+                    label Image (Optional)
+                    input(class="form-control",type='file', name='filename')
+                    button(class="btn btn-default",type='submit') Submit

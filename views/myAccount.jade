@@ -1,0 +1,70 @@
+doctype html
+html(ng-app='angularApp')
+    base(href='/')
+    head
+        title Recipe Finder
+        script(src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js')
+        script(src='javascripts/app.js', type='text/javascript')
+        link(href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', rel='stylesheet')
+        link(href='stylesheets/custom.css', rel='stylesheet')
+        link(rel='stylesheet', href="stylesheets/colorbox.css")
+        link(href='stylesheets/colorbox.css', rel='stylesheet')
+        link(href='http://fonts.googleapis.com/css?family=Lobster' rel='stylesheet'  type='text/css')
+        style.
+            body {
+                background-image: url("images/myAcc.jpg");
+                background-size: 100%;
+                background-position: center;
+            }
+
+            a {
+                color: gold;
+                font-size: 30px;
+                font-family: 'Lobster';
+            }
+
+            .button {
+                background-color: white;
+                color: black;
+                border: 2px solid #e7e7e7;
+                border-radius: 10px;
+                font-size: 15px;
+            }
+
+            .button:hover {
+                background-color: #e7e7e7;
+            }
+
+    body
+        nav.navbar.navbar-custom.navbar-fixed-top
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(onclick="location.href='/user/#{login}'") Recipe Finder
+            .collapse.navbar-collapse.navbar-right
+                ul.nav.navbar-nav
+                    li.active
+                        a(onclick="location.href='/myAccount/#{login}'") MY ACCOUNT
+                    li
+                        a(onclick="location.href='/'") Logout
+        p(style='font-size: 30px; color: white; font-family:Lobster') My Recipes
+        input(type="button", class="button", onclick="location.href='/newRecipe/#{login}'", value="Add Recipe")
+        ul
+        - for (var inx = 0; inx < results1.length; inx++)
+            li
+             a(href='/viewRecipeUser/#{results1[inx].ID}&#{login}') #{results1[inx].Title} | #{results1[inx].Category}
+             &nbsp;&nbsp;
+             input(type="button", class="button", onclick="location.href='/editRecipe/#{results1[inx].ID}'", value="Edit")
+        br
+        br
+        br
+        br
+        p(style='font-size: 30px; color: white; font-family:Lobster') My Favorites
+        ul
+        - for (var inx = 0; inx < results2.length; inx++)
+            li
+             a(href='/viewRecipeUser/#{results2[inx].ID}&#{login}') #{results2[inx].Title} | #{results2[inx].Category}
+             br
+             br

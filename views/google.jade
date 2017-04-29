@@ -1,0 +1,16 @@
+//
+   Created by surab on 4/27/2017.
+
+doctype html
+html(ng-app='angularApp')
+    base(href='/')
+    head
+        title Recipe Finder
+        link(href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', rel='stylesheet')
+        link(href='stylesheets/custom.css', rel='stylesheet')
+        link(rel='stylesheet', href="stylesheets/colorbox.css")
+    body
+        div(ng-controller='GoogleController')
+            p Just to see if this is working
+            p(ng-bind="message")
+            p Checking again

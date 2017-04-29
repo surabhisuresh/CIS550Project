@@ -1,0 +1,78 @@
+doctype html
+html(ng-app='angularApp')
+    head
+        base(href='/')
+
+        title Admin Dashboard
+
+        script(src='http://cdnjs.cloudflare.com/ajax/libs/angular.js/1.4.2/angular.js')
+
+        script(src='javascripts/app.js', type='text/javascript')
+        link(rel='stylesheet', href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css")
+        link(rel='stylesheet', href="stylesheets/custom.css")
+        link(rel='stylesheet', href="stylesheets/colorbox.css")
+        style(type='text/css').
+            table tr td, table tr th {
+                padding: 5px;
+                border: 1px solid black;
+            }
+    body
+        // Navigation Bar
+        nav.navbar.navbar-custom.navbar-fixed-top
+            .navbar-header
+                button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                a.navbar-brand(href='/signIn') Recipe Finder
+            // /.nav-collapse
+            .collapse.navbar-collapse.navbar-right
+                ul.nav.navbar-nav
+                    li.active
+                        a(href='/') Logout
+        br
+        br
+        br
+
+        .row-offcanvas.row-offcanvas-left
+            #sidebar.sidebar-offcanvas
+                .col-md-12
+                    h3 Choose an Action
+                    ul.nav.nav-pills.nav-stacked
+                        li.activ
+                            a(href='/admin_recipe') Recipe List
+                        li
+                            a(href='/admin_user') User List
+
+
+            p List of All Recipes
+            div(ng-controller='AdminRecipeController')
+                table(style="width:65%;")
+                    thead
+                        tr
+                            th ID
+
+                            th Title
+
+                            th Category
+
+                            th Login
+
+                            th Delete
+
+                    tbody
+                        tr(ng-repeat='x in recipes')
+                            td {{ x.ID }}
+
+                            td
+                                a(ng-href='/viewRecipe/{{x.ID}}') {{x.Title}}
+
+                            td {{ x.Category }}
+
+                            td {{ x.Login }}
+
+                            td
+                                a(ng-href='/delRecipe/{{x.ID}}') Delete
+
+
+

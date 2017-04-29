@@ -1,0 +1,24 @@
+//
+   Created by surab on 4/26/2017.
+
+doctype html
+html
+    head
+        base(href='/')
+        title Recipe Finder
+        link(href='//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css', rel='stylesheet')
+        link(href='stylesheets/custom.css', rel='stylesheet')
+        link(rel='stylesheet', href="stylesheets/colorbox.css")
+        link(href='http://fonts.googleapis.com/css?family=Cabin' rel='stylesheet' type='text/css')
+        style.
+            body{
+                background-image: url("images/recipes.jpg");
+                color: white;
+                font-family: Cabin;}
+    body
+        p(style="font-weight:bold; font-size:30px") NUTRITIONAL INFO
+        p(style="font-weight:bold; font-size:18px") Serving Size: 100g
+        p(style="font-weight:bold; font-size:18px") Energy: #{Math.round(results[0].energyAvg)} cal
+        p(style="font-weight:bold; font-size:18px") Fat: #{results[0].fatAvg.toPrecision(2)} g
+        p(style="font-weight:bold; font-size:18px") Carbohydrates: #{results[0].carbAvg.toPrecision(2)} g
+        p(style="font-weight:bold; font-size:18px") Protein: #{results[0].proteinAvg.toPrecision(2)} g
